@@ -69,7 +69,7 @@ function filterItems(e){
   // Get lis
   var items = itemList.getElementsByTagName('li');
   // Convert to an array
-  Array.from(items).forEach(function(item){
+  Array.from(items).forEach(function(item){    
     
     var itemName =item.firstChild.textContent;
     var description =item.childNodes[1].textContent;
