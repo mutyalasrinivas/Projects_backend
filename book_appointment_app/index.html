@@ -11,23 +11,33 @@
          <button  >Submit</button>
 
     </form>
+     <li id="listOfitems"></li>
     <script>
         function saveToLocalStorage(event){
             event.preventDefault();
             const name=event.target.username.value;
             const email=event.target.emailid.value;
             const phonenumber=event.target.phonenumber.value;
-            localStorage.setItem('username',name);
-            localStorage.setItem('emailid',email);
-            localStorage.setItem('phonenumber',phonenumber)
+            // localStorage.setItem('username',name);
+            // localStorage.setItem('emailid',email);
+            // localStorage.setItem('phonenumber',phonenumber)
 
-            let myObj={
-                name:'sri',
-                class: 10,
-                state:'ap'
+            let obj={
+                name,
+                email,
+                phonenumber
+                
             }
-            let obj_serialize=JSON.stringify(myObj)
-            localStorage.setItem('myObj',obj_serialize)
+             
+            localStorage.setItem(obj.email,JSON.stringify(obj))
+            showUserOnScreen(obj)
+            function showUserOnScreen(obj){
+                const parentEle=document.getElementById('listOfitems')
+                const childEle =document.createElement('li')
+                childEle.textContent= obj.name +'-'+obj.email + '-'+obj.phonenumber
+                parentEle.appendChild(childEle)
+                // parentEle.innerHTML=parentEle.innerHTML + `<li>${obj.name}-${obj.email}-${obj.phonenumber}</li>`
+            }
         }
     </script>
 </body>
