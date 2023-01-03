@@ -9,9 +9,8 @@
          <label>Phone Number</label>
          <input type="tel" name="phonenumber" >
          <button  >Submit</button>
-
-    </form>
-     <li id="listOfitems"></li>
+     </form>
+      <ul id="listOfitems" ></ul>
     <script>
         function saveToLocalStorage(event){
             event.preventDefault();
@@ -34,11 +33,31 @@
             function showUserOnScreen(obj){
                 const parentEle=document.getElementById('listOfitems')
                 const childEle =document.createElement('li')
+            
                 childEle.textContent= obj.name +'-'+obj.email + '-'+obj.phonenumber
+                const deleteBtn =document.createElement('input')
+                deleteBtn.type='button'
+                deleteBtn.value='Delete'
+                
+                deleteBtn.onclick=()=>{
+                    localStorage.removeItem(obj.email)
+                    parentEle.removeChild(childEle)
+                 }
+
+            
+                childEle.appendChild(deleteBtn) 
                 parentEle.appendChild(childEle)
+                 
+                 
+                
                 // parentEle.innerHTML=parentEle.innerHTML + `<li>${obj.name}-${obj.email}-${obj.phonenumber}</li>`
-            }
         }
+    }
+        
     </script>
 </body>
 </html>
+
+
+
+ 
