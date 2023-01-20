@@ -14,35 +14,36 @@ const posts=[
     },1000)
 
  }
- function createPost(post){
-    return  new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-            posts.push({...post,createdAt:new Date().getTime()} )
-            let error=false;
-            if(!error){
-               resolve();
-            }else{
-               reject('Error: something went wrong')
-            }
-         },2000)
-         
-    })
-    
- }
+ async function createPost(post) {
+    try {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          posts.push({...post, createdAt: new Date().getTime()});
+          resolve();
+        }, 2000);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
     
  
- function deletePost(post){
-    return new Promise((resolve,reject)=>{
-       setTimeout(()=>{
-            posts.pop(post)
-            if(posts.length===0){
-                reject('Error: something wrong')
-            }else{
-                 resolve()
-            }
-       },1000)
-    })
- }
+  async function deletePost(post) {
+    try {
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          posts.pop(post);
+          if (posts.length === 0) {
+            reject('Error: something went wrong');
+          } else {
+            resolve();
+          }
+        }, 1000);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 //promise.all
 
