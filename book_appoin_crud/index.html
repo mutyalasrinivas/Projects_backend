@@ -1,0 +1,84 @@
+<html>
+    <body>
+        <form onsubmit=saveToLocalStorage(event)>
+             
+             <label>Name</label>
+             <input type="text" name="username" id="username" required>
+             <label>EmailId</label>
+             <input type="email" name="emailid" id='emailId'required>
+             <label>Phone Number</label>
+             <input type="tel" name="phonenumber" id="phonenumber" >
+             <button  >Submit</button>
+              
+         </form>
+          
+       
+          <ul id="listOfitems" ></ul>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+        <script>
+            function saveToLocalStorage(event){
+                event.preventDefault();
+                const name=event.target.username.value;
+                const email=event.target.emailid.value;
+                const phonenumber=event.target.phonenumber.value;
+                // localStorage.setItem('username',name);
+                // localStorage.setItem('emailid',email);
+                // localStorage.setItem('phonenumber',phonenumber)
+    
+                let obj={
+                    name,
+                    email,
+                    phonenumber
+                    
+                }
+                 axios.post('https://crudcrud.com/api/3c47ff4ea3424f9e9b0679674004a19d/bookaseat',obj)
+                 .then(res=>showUserOnScreen(res.data))
+                 .catch(err=>console.log(err))
+               
+                // localStorage.setItem(obj.email,JSON.stringify(obj))
+                // showUserOnScreen(obj)
+                function showUserOnScreen(obj){
+                    const parentEle=document.getElementById('listOfitems')
+                    const childEle =document.createElement('li')
+                
+                    childEle.textContent= obj.name +'-'+obj.email + '-'+obj.phonenumber
+                    const deleteBtn =document.createElement('input')
+                    deleteBtn.type='button'
+                    deleteBtn.value='Delete'
+                    
+                    deleteBtn.onclick=()=>{
+                        localStorage.removeItem(obj.email)
+                        parentEle.removeChild(childEle)
+                     }
+    
+                    const editButton =document.createElement('input')
+                    editButton.type='button'
+                    editButton.value='edit'
+                    editButton.onclick=()=>{
+                        localStorage.removeItem(obj.email)
+                        parentEle.removeChild(childEle)
+                         var names=document.getElementById('username')
+                         var emails=document.getElementById('emailId')
+                         var phonenumbers=document.getElementById('phonenumber')
+    
+                         names.value=obj.name
+                         emails.value=obj.email
+                         phonenumbers.value=obj.phonenumber
+                         
+                    } 
+    
+                    childEle.appendChild(editButton)
+                    childEle.appendChild(deleteBtn) 
+                    parentEle.appendChild(childEle)
+                      
+                    // parentEle.innerHTML=parentEle.innerHTML + `<li>${obj.name}-${obj.email}-${obj.phonenumber}</li>`
+            }
+        }
+            
+        </script>
+    </body>
+    </html>
+    
+    
+    
+     
