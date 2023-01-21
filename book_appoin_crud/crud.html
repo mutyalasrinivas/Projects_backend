@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="saveTolocal(event)">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="names" value="">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="emails" value="">
+        <label for="pass">Password</label>
+        <input type="pass" id="pass" name="passwords" value="">
+        <button>submit</button>
+
+    </form>
+    <ul id="listOfUsers"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script type="text/javascript">
+        function saveTolocal(event){
+            event.preventDefault();
+            var nam=event.target.name.value;
+            var eml=event.target.email.value;
+            var pasd=event.target.pass.value;
+            //console.log(nam);
+            //console.log(eml);
+            //console.log(pasd);
+            //localStorage.setItem("n",nam);
+            //localStorage.setItem("e",eml);
+            //localStorage.setItem("p",pasd);
+            //console.log(localStorage)
+      let obj={
+        nam,
+        eml,
+        pasd
+      }
+      axios.post("https://crudcrud.com/api/3c47ff4ea3424f9e9b0679674004a19d/ApointmentData",obj)
+      .then((response)=>{
+        showUserOnScreen(response.data);
+        console.log(response);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+      //localStorage.setItem(obj.eml,JSON.stringify(obj));
+      //console.log(localStorage);
+      //showUserOnScreen(obj);
+           
+        }
+      
+        function showUserOnScreen(user){
+            var parentNode=document.getElementById("listOfUsers");
+           // console.log(parentNode);
+           var childNode=`<li id="${user.eml}" >
+            ${user.nam}- ${user.eml}- ${user.pasd}
+                <button onclick=deleteUser('${user.eml}')>Delete</button>
+                <button onclick=editUserDetails('${user.eml},${user.nam}
+                ,${user.pasd}')>Edit</button>
+                </li>`
+            parentNode.innerHTML=parentNode.innerHTML+childNode;
+            //console.log(childNode)
+            
+            }
+        function deleteUser(eml){
+           // console.log(eml)
+           localStorage.removeItem(eml);
+           deleteFromScreenAlso(eml)
+        }
+        function deleteFromScreenAlso(eml){
+            var parentNode=document.getElementById("listOfUsers");
+          var childNodeToBeDeleted=document.getElementById(eml);
+          parentNode.removeChild(childNodeToBeDeleted);
+         
+
+        }
+           function editUserDetails(eml,nam,pasd){
+   document.getElementById('email').value=eml;
+ 
+      document.getElementById('name').value=nam;
+      document.getElementById('pass').value=pasd;
+       console.log("hellow")
+       
+
+      deleteUser(eml)
+       
+   }
+   window.addEventListener("DOMContentLoaded",()=>{
+    axios.get("https://crudcrud.com/api/3c47ff4ea3424f9e9b0679674004a19d/ApointmentData")
+    .then((response)=>{
+        console.log(response);
+        for(let i=0;i<response.data.length;i++){
+            showUserOnScreen(response.data[i]);
+        }
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+
+   })
+    </script>
+</body>
+</html>
