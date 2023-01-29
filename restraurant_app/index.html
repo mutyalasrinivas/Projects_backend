@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid  p-5 my-5 border"> 
+
+      <h1>Welcome To Restraurant</h1>
+    </div>
+    <form class="form-control" onsubmit="saveData(event)">
+        <label for="price">Dish price</label>
+        <input type="text" name="price" id="price" required>
+        <label for="dname">Dish Name</label>
+        <input type="text" id="dname" name="dname" required>
+        <label for="table">Choose Table</label>
+        <select id="table" for="table">
+            <option value="table1">Table 1</option>
+            <option value="table2">Table 2</option>
+            <option value="table3">Table 3</option>
+        </select>
+         <button id="btn">Add To Bill</button>
+    </form>
+    <ul id="list">
+         
+    </ul>
+
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.min.js"></script>
+</body>
+</html>
